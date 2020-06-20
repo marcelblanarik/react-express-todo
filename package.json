@@ -4,6 +4,7 @@
   "description": "A simple React EpressJS ToDo Application",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon api/index.js",
     "test": "test"
   },
   "repository": {
@@ -18,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/marcelblanarik/react-express-todo/issues"
   },
-  "homepage": "https://github.com/marcelblanarik/react-express-todo#readme"
+  "homepage": "https://github.com/marcelblanarik/react-express-todo#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.19"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
