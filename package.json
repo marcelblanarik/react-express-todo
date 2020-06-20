@@ -1,0 +1,22 @@
+{
+  "name": "react-express-todo",
+  "version": "1.0.0",
+  "description": "A simple React EpressJS ToDo Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelblanarik/react-express-todo.git"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Marcel Blanarik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcelblanarik/react-express-todo/issues"
+  },
+  "homepage": "https://github.com/marcelblanarik/react-express-todo#readme"
+}
