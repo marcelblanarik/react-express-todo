@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const verifyToken = require("./routes/validate-token");
 
 dotenv.config();
 const app = express();
@@ -17,10 +18,14 @@ mongoose.connect(
 
 // import routes
 const authRoutes = require("./routes/auth");
+const todosRoutes = require("./routes/todos");
 
 // middlewares
 app.use(express.json()); // for body parser
 
 // route middlewares
 app.use("/api/user", authRoutes);
-app.listen(3000, () => console.log("server is running..."));
+// this route is protected with token
+app.use("/api/todos", verifyToken, todosRoutes);
+
+app.listen(5000, () => console.log("Backend is running..."));
