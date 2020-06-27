@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const verifyToken = require("./routes/validate-token");
+const cors = require("cors");
 
 dotenv.config();
 const app = express();
@@ -19,6 +20,8 @@ mongoose.connect(
 // import routes
 const authRoutes = require("./routes/auth");
 const todosRoutes = require("./routes/todos");
+
+app.use(cors());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");

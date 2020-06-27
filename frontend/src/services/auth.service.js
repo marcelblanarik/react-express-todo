@@ -28,8 +28,10 @@ const login = (email, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      console.log(response);
+      if (response.data.data.token) {
+        localStorage.setItem("token", JSON.stringify(response.data.data.token));
+        localStorage.setItem("user", JSON.stringify(response.data.data.user));
       }
 
       return response.data;
@@ -40,7 +42,11 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-const getCurrentUser = () => {
+const getToken = () => {
+  return JSON.parse(localStorage.getItem("token"));
+};
+
+const getUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
@@ -48,5 +54,6 @@ export default {
   register,
   login,
   logout,
-  getCurrentUser,
+  getToken,
+  getUser,
 };

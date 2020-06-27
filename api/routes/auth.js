@@ -73,16 +73,11 @@ router.post("/login", async (req, res) => {
     },
     process.env.TOKEN_SECRET
   );
-  res.header("auth-token", token).json({
-    error: null,
-    data: {
-      token,
-    },
-  });
   res.json({
     error: null,
     data: {
-      message: "Login successful",
+      user,
+      token,
     },
   });
 });
