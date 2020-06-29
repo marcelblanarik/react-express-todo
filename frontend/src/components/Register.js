@@ -102,7 +102,7 @@ const Register = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-6 offset-md-3">
       <div>
         <h2 className="text-center">Create an account</h2>
         <Form onSubmit={handleRegister} ref={form}>

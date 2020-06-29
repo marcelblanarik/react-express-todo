@@ -1,10 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
-import ToDoService from "../services/todo.service";
 import authService from "../services/auth.service";
+import todoService from "../services/todo.service";
+import "./Styles.css";
 
 const required = (value) => {
   if (!value) {
@@ -16,13 +16,24 @@ const required = (value) => {
   }
 };
 
-const Todo = (props) => {
+const Todo = () => {
   const form = useRef();
   const checkBtn = useRef();
-
+  const token = authService.getToken();
   const [todo, setTodo] = useState("");
+  const [allTodos, setAllTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [completed, setCompleted] = useState(false);
+
+  async function fetchTodos() {
+    const query = await todoService.getAllTodos(token);
+    setAllTodos(query.data);
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const onChangeTodo = (e) => {
     const todo = e.target.value;
@@ -38,18 +49,19 @@ const Todo = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      const token = authService.getToken();
       const user = authService.getUser();
       const userId = user._id;
-      console.log(token);
-      ToDoService.addTodo(userId, todo, token).then((response) => {
-        console.log(response);
-      });
+      todoService.createTodo(userId, todo, token).then(setLoading(false));
+      fetchTodos();
     }
   };
 
+  const completeTodo = (todo) => {
+    todo.setCompleted(!completed);
+  };
+
   return (
-    <div className="col-md-12">
+    <div className="col-md-6 offset-md-3">
       <div>
         <h1 className="text-center">Awesome ToDo App</h1>
         <h2 className="text-center">Add new ToDo item</h2>
@@ -85,6 +97,14 @@ const Todo = (props) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
       </div>
+      <ul>
+        {!!allTodos &&
+          allTodos.map((todo) => (
+            <li key={todo._id} onClick={(todo) => completeTodo(todo)}>
+              {todo.title}
+            </li>
+          ))}
+      </ul>
     </div>
   );
 };

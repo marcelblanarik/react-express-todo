@@ -66,7 +66,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-6 offset-md-3">
       <div>
         <h1 className="text-center">Awesome ToDo App</h1>
         <h2 className="text-center">Log in</h2>
