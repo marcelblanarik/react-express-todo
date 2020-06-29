@@ -24,7 +24,6 @@ const Todo = () => {
   const [allTodos, setAllTodos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [completed, setCompleted] = useState(false);
 
   async function fetchTodos() {
     const query = await todoService.getAllTodos(token);
@@ -54,10 +53,6 @@ const Todo = () => {
       todoService.createTodo(userId, todo, token).then(setLoading(false));
       fetchTodos();
     }
-  };
-
-  const completeTodo = (todo) => {
-    todo.setCompleted(!completed);
   };
 
   return (
@@ -99,11 +94,7 @@ const Todo = () => {
       </div>
       <ul>
         {!!allTodos &&
-          allTodos.map((todo) => (
-            <li key={todo._id} onClick={(todo) => completeTodo(todo)}>
-              {todo.title}
-            </li>
-          ))}
+          allTodos.map((todo) => <li key={todo._id}>{todo.title}</li>)}
       </ul>
     </div>
   );
